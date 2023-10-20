@@ -29,3 +29,42 @@ function completeTask(index) {
     }
   });
 }
+
+async function main() {
+  // Código existente
+
+  // Ejemplo de uso con async/await
+  try {
+    await addTask('Completar ejercicio');
+    await addTask('Preparar presentación');
+    showTasks();
+
+    await completeTask(0);
+    showTasks();
+
+    await deleteTask(1);
+    showTasks();
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    rl.close(); // Cerrar la interfaz de lectura
+  }
+}
+
+main();
+
+addTask('Completar ejercicio')
+  .then(() => addTask('Preparar presentación'))
+  .then(() => {
+    showTasks();
+    return completeTask(0);
+  })
+  .then(() => {
+    showTasks();
+    return deleteTask(1);
+  })
+  .then(() => {
+    showTasks();
+    rl.close(); // Cerrar la interfaz de lectura
+  })
+  .catch((error) => console.error('Error:', error));
